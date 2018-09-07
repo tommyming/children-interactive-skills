@@ -1,0 +1,124 @@
+<html>
+<head>
+	<style>
+		.fix-contain-box{
+		position:fixed;
+		right:50px;
+		bottom:50px;
+		width:200px;
+		height:75px;
+		border: 5px solid grey;
+		padding: 10px;
+		}
+	</style>
+	
+	<meta charset="UTF-8">
+	<meta name ="Brent Wong">
+	<title>IQ題</title>
+</head>
+<body>
+	<ol>
+	<li>
+	<h3>牧師無論如何都不能主持的儀式是什麽？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>小煇的的士明明標著“空車”，可是一路上爲什麽還是沒有人向他招手？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>. 身體什麽部分受傷了，醫院無法醫治？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+
+	<li>
+	<h3>什麽水沒有可能可以喝？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	
+	<li>
+	<h3>小偉家有三兄弟，大哥叫大寶，二哥叫二寶，三弟叫什麽？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	
+	<li>
+	<h3>全世界只有一個人能夠正確地說出自己頭髮的數目，他是誰？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>住在香港的黃先生一直想去美國旅行，請問他最少要用多少錢？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>下大雨，有三個人沒有帶雨傘在街上走，爲什麽只有一個人濕透？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	
+	<li>
+	<h3>一次考試中出現了三個同樣答案的試卷，但是考官沒有覺得特別，爲什麽？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>怎樣才能把單車加速到和火車一樣呢？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>人很想知道卻沒有辦法知道的事是什麽？</h3>
+	<button type="button" class="correct" >✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+	<h3>太平洋正中間的是什麽？</h3>
+	<button type="button" class="correct">✓</button>
+	<button type="button" class="wrong">✗</button>
+	</li>
+	
+	<li>
+		<h3>什麽東西是自己的卻一定要送給人不可以留給自己呢？</h3>
+		<button type="button" class="correct">✓</button>
+		<button type="button" class="wrong">✗</button>
+	</li>
+	</ol>
+	
+	<div class="fix-contain-box">
+		<div id="correct_no">成功答對題目數:0/13</div>
+		<div id="tried_time">已嘗試次數: 0</div>
+	</div>
+	
+	<script src="../javascript/jquery.js"></script>
+	<script>
+		var count=0;
+		var correct_count=0;
+		$(".correct").click(function(){
+			$(this).parent().children("button").attr("disabled",true);
+			correct_count++;
+			$("#correct_no").html("成功答對題目數:"+correct_count+"/13");
+		});
+		
+		$(".wrong").click(function(){
+			count++;
+			$("#tried_time").html("已嘗試次數:"+count);
+		});
+	</script>
+</body>
+</html>

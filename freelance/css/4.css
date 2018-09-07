@@ -1,0 +1,48 @@
+button{
+	border: none;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight:bold;
+	margin: 15px 3px;
+	color: black;
+	cursor: pointer;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+button[type=reset]{
+	background-color: #ff5555; 
+    border: 2px solid #cc2222;
+}
+
+button[type=button]{
+	background-color: #6ED272; 
+    border: 2px solid #4CAF50;
+}
+
+button[type=button]:hover{
+	background-color: #0cad00;
+}
+
+button[type=reset]:hover{
+	background-color: #cc2222;
+}
+
+input[type=number]::-webkit-inner-spin-button{
+-webkit-appearance: none;
+margin: 0;
+}
+
+table{
+	border: 2px solid black;
+}
+
+input{
+	font-size:20px;
+	text-align:center;
+}
+
+table tr td{
+	padding: 10px;
+}

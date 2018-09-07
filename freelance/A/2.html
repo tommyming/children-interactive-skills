@@ -1,0 +1,133 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="言語治療">
+	<meta name="keywords" content="言語治療">
+	<meta name="author" content="Brent">
+	<style>
+		input{
+			font-size:1.1em;
+			margin-bottom: 10px;
+			width:100px;
+		}
+		button{
+			font-size: 1.1em;
+		}
+	</style>
+	<title>記憶接龍</title>
+</head>
+
+<body>
+	<h1> 東華三院小學言語能力提升技巧 </h1>
+	<h2> 記憶練習-記憶接龍 </h2>
+	<p id="instruction">先寫下5個詞語，記牢後按下繼續。</p>
+	<div id="set1">
+		1.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		2.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		3.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		4.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		5.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+	</div>                                             
+	                                                   
+	<div id="set2">                                    
+		6.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		7.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		8.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		9.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+		10.<div><input type="text"  name="words"><span name="correct_ans"></span></div>
+	</div>
+	
+	<button type="button" id="btnNext" onclick="checkBlank()">繼續</button>
+	
+	<script src="../javascript/jquery.js"></script> 
+	<script>
+		var words;
+		var correct_ans;
+		var memory= new Array();
+		var round=1;
+		var start=0,end=5;
+		$(function(){
+			words=$("input[name='words']");
+			correct_ans=$("span[name='correct_ans']");
+			$("#set2").hide();
+		});
+		
+		function checkBlank(){
+			var hasBlank=false;
+			for (var i=start;i<end;i++){
+				if(words.eq(i).val()==""){
+					hasBlank=true;
+					break;
+				}
+			}
+			if(hasBlank){
+				alert("請先填滿所有空格。");
+			}
+			else{		
+				if(round==1){
+					$("#instruction").html("請寫下剛剛的五組詞語。");
+					for (var i=0;i<5;i++){
+						memory.push(words.eq(i).val());
+						words.eq(i).val("");
+					}
+					round++;
+				}
+				else if (round==2){
+					$("#instruction").html("檢查答案。");
+					for (var i=0;i<5;i++){
+						if(words.eq(i).val()==memory[i]){
+							words.eq(i).css("background-color","green");
+						}
+						else{
+							words.eq(i).css("background-color","red");
+							correct_ans.eq(i).html(" 正確答案: "+memory[i]);
+						}
+					}
+					round++;
+				}
+				else if(round==3){
+					$("#instruction").html("現在輸入另外五組詞語並牢記，然後按下繼續按鈕。");
+					for (var i=0;i<5;i++){
+						words.eq(i).val("");
+						words.eq(i).css("background-color","white");
+						correct_ans.eq(i).html("");
+					}
+					start=5,end=10;
+					
+					$("#set1").hide();
+					$("#set2").show();
+					
+					round++;
+				}
+				else if (round==4){
+					$("#instruction").html("現在請按順序輸入一共十組的詞語。");
+					for (var i=5;i<10;i++){
+						memory.push(words.eq(i).val());
+						words.eq(i).val("");
+					}
+					round++;
+					$("#set1").show();
+				}
+				else if (round==5){
+					$("#instruction").html("檢查答案。");
+					for (var i=0;i<10;i++){
+						if(words.eq(i).val()==memory[i]){
+							words.eq(i).css("background-color","green");
+						}
+						else{
+							words.eq(i).css("background-color","red");
+							correct_ans.eq(i).html(" 正確答案: "+memory[i]);
+						}
+					}
+					$("#btnNext").html("再次測試");
+					round++;
+				}
+				else{
+					$("#instruction").html("");
+					location.reload();
+				}
+			}
+		}
+	</script>
+</body>
+</html>

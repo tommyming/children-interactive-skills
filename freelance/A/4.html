@@ -1,0 +1,111 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="言語治療">
+	<meta name="keywords" content="言語治療">
+	<meta name="author" content="Brent">
+	<title> 記憶練習-數字記憶 </title>
+	<link rel="stylesheet" type="text/css" href="../css/4.css"></script>
+</head>
+<body bgcolor="#6ccccc">
+	<h1> 東華三院小學言語能力提升技巧 </h1>
+	<h2> 記憶練習-數字記憶 </h2>
+	
+	<p>在下方的方格內隨意寫下 1 - 9  共 9 個數字，並記住數字，然後按下測試按鈕並再次填上剛才寫下的數字。完成後可以按結果查看答案。
+	</p>
+	<table>
+		<form id="numbers"
+		<tr>
+			<td id="td0"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td1"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td2"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+		</tr>
+		<tr>
+			<td id="td3"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td4"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td5"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+		</tr>
+		<tr>
+			<td id="td6"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td7"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+			<td id="td8"><input type="number" max="9" min= "1" step="1" name= "no"></td>
+		</tr>
+		</form>
+	</table>
+		<button type="reset" form="numbers" id="reset">重設</button>
+		<button type="button" onclick="check()" id="submit"> 開始測試 </button>
+		
+		<script src="../javascript/jquery.js"></script>
+		<script>
+			var isTesting=false;
+			var tested=false;
+			var savedAns= new Array();
+			function check(){
+				var no= new Array();
+				var hasBlank=false;
+				var reachedLimit=false;
+				no=$("input[name$='no']");
+				
+				for (i=0;i<no.length;i++){
+					if(no.eq(i).val()==""){
+						hasBlank=true;
+					}
+					else if (no.eq(i).val()<1 || no.eq(i).val()>9){
+						reachedLimit=true;
+					}
+				}
+				
+				if(tested){
+					location.reload();
+				}
+				else{
+					if (isTesting){
+						if(hasBlank){
+							alert("請填滿所有方格！");
+						}
+						else if (reachedLimit){
+							alert("請確保所有數字在 1 ~ 9 範圍之內！");
+						}
+						else{
+							var submitAns=confirm("確定提交?");
+							if (submitAns==true){
+								for (i=0;i<no.length;i++){
+									if (savedAns[i]==no.eq(i).val()){
+										no.eq(i).css("background-color","green");
+									}
+									else{
+										no.eq(i).css("background-color","red");
+										$("#td"+i).append(" "+ savedAns[i]);
+									}
+									no.eq(i).attr("onkeydown","return false");
+								}
+								$("#submit").html("再次測試");
+								$("#reset").attr("disabled", true);
+								tested=true;								
+							}
+						}
+					}
+					else{
+						if(hasBlank){
+							alert("請填滿所有方格！");
+						}
+						else if (reachedLimit){
+							alert("請確保所有數字在 1 ~ 9 範圍之內！");
+						}
+						else{
+							var submitNo=confirm("你已經記住所有數字了嗎？");
+							if (submitNo==true){
+								for (i=0;i<no.length;i++){
+									savedAns[i]=no.eq(i).val();
+									no.eq(i).val("");
+								}
+								$("#submit").html("測試結果");
+								isTesting=true;									
+							}
+						}
+					}
+				}
+			}
+		</script>
+</body>
+</html>

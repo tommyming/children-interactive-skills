@@ -1,0 +1,190 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="言語治療">
+	<meta name="keywords" content="言語治療">
+	<meta name="author" content="Brent">
+	<style>
+		.right{
+			position:fixed;
+			bottom:0;
+			right:0;
+		}
+		ul{
+			margin-left:-25px;
+		}
+		
+		li{
+			font-weight:bold;
+			list-style-type:none;
+			display: inline;
+			margin-right:15px;
+		}
+		
+		.unclick{	
+			font-weight:normal;
+			cursor:pointer;
+			text-decoration:underline;
+			color:blue;
+		}
+		
+	</style>
+	<title>圖片描述記憶</title>
+</head>
+<body>
+	<h1>東華三院小學言語能力提升技巧</h1>
+	<h2>記憶練習-圖片描述記憶</h2>
+	<ul>
+		<li value='0'>第一題</li>
+		<li class="unclick" value='1'>第二題</li>
+		<li class="unclick" value='2'>第三題</li>
+		<li class="unclick" value='3'>第四題</li>
+		<li class="unclick" value='4'>第五題</li>
+		<li class="unclick" value='5'>第六題</li>
+		<li class="unclick" value='6'>第七題</li>
+		<li class="unclick" value='7'>第八題</li>
+		<li class="unclick" value='8'>第九題</li>
+		<li class="unclick" value='9'>第十題</li>
+		<li class="unclick" value='10'>第十一題</li>
+		<li class="unclick" value='11'>第十二題</li>
+	</ul>
+	
+	<h3>觀察圖畫並留意當中細節，然後按下開始遊戲回答問題並選取正確答案來得分。</h3>
+	<p id="mark">分數: 0/4</p>
+	<p id="instruction">記得所有細節了嗎? 如果準備好就按下回答問題的按鈕。</p>
+	
+	<p><b id="question"></b></p>
+	<legend id="mul_choices">
+		<input type="radio" value="1" name="ans"><span  id="a" ></span>
+		<input type="radio" value="2" name="ans"><span  id="b" ></span>
+		<input type="radio" value="3" name="ans"><span  id="c" ></span>
+	</legend>
+	<img id="picture" alt="圖片" width=325 height=325>
+	
+	<br>
+	<button type="button" id="btnStart">開始遊戲</button>
+	<button type="button" id="btnNext">下一題</button>
+	
+	<div class="right">
+		<h3>人物介紹</h3>
+		<img src="../img/3.png" alt="人物介紹" height="325" width="300">
+	</div>
+	
+	<script src="../javascript/jquery.js"></script>
+	<script>
+		$(function(){
+			var qno=0;
+			var ans=[['1','2','2','1'],['3','3','1','2'],['1','3','1','2'],['3','2','1','2'],
+					['1','2','3','2'],['1','2','1','2'],['2','3','2','1'],['1','2','1','3'],
+					['3','1','2','3'],['3','1','2','3'],['1','1','1','2'],['1','2','1','3']];
+			var score=0;
+			var bqno=0;
+			var user_ans;
+			var choices=[[["校服","便服","睡衣"],["家裡","學校","公園"],["快餐","便當","甜品"],["一個","兩個","三個"]],
+						[["小華在睡覺","小華不在","小華搶了他的蘋果"],["筆","水瓶","拳頭"],["瓶裝水","果汁","可樂"],["藍色","綠色","黃色"]],
+						[["老師","父母","班長"],["紅色","黃色","紫色"],["蘋果汁","綠茶","水"],["叉子","筷子","湯匙"]],
+						[["小華","小東","小華和小東"],["門前","窗前","黑板前"],["有","沒有","不確定"],["連身裙","外套和裙子","晚裝"]],
+						[["公園","學校","家裡"],["咖啡色","綠色","藍色"],["山上","草地上","滑梯上"],["老師","妹妹","媽媽"]],
+						[["媽媽","爸爸","妹妹"],["小華","東東","妹妹"],["紫色","綠色","紅色"],["爸爸","小華","妹妹"]],
+						[["媽媽","救護員","爸爸"],["私家車","巴士","救護車"],["有","沒有","不確定"],["大哭","睡覺","大笑"]],
+						[["醫院","學校","家裡"],["左手","右手","不確定"],["男的","女的","不確定"],["媽媽、小華","小華、醫生","醫生、媽媽"]],
+						[["野餐","煮飯","燒烤"],["爸爸","媽媽","東東"],["串食物","準備食物","吃東西"],["吃東西","聊天","踩石頭"]],
+						[["食物","樹葉","水"],["樹葉","石頭","食物"],["兩棵","三顆","四棵"],["藍色","紫色","綠色"]],
+						[["兩個","三個","四個"],["拖把","水","扇"],["水","沙子","拖把"],["在","不在","不確定"]],
+						[["訓話","準備離開","收拾"],["爸爸旁邊","消防員旁邊","最後"],["黃色","綠色","紅色"],["樹葉","石頭","傷口"]]];
+			
+			
+			var q=[["東東和小華穿什麼衣服?","他們在什麼地方?","他們在吃什麼?","檯上有多少蘋果?"],
+					["東東爲什麽打小華?","東東用什麽打小華?","他們臺上有什麽飲品?", "他們的臺是什麽顔色?"],
+					["小華向誰投訴?","老師穿著什麼顏色的衣服?","老師檯上有什麼飲品?", "老師用什麼餐具?"],
+					["老師教訓誰?","東東和小華站在哪裡?","老師是否有戴眼鏡?", "老師穿著什麼樣的衣服?"],
+					["東東和小華在哪裡?","東東穿著什麼顏色的衣服?","東東和小華在哪裡跑?", "誰正在滑滑梯?"],
+					["誰正在跑?","誰發生意外?","媽媽穿什麼顏色的衣服?", "誰在滑梯上?"],
+					["誰來治療東東?","圖中有什麼車輛?","媽媽有沒有穿襪子?", "東東正在做什麼?"],
+					["東東和媽媽在哪裡?","東東左手還是右手受傷?","醫生是男的還是女的?", "誰站著?"],
+					["東東一家在做什麼?","誰起火?","媽媽在做什麼?", "妹妹穿著什麼衣服?"],
+					["爸爸拿著什麼東西?","東東和妹妹丟什麼入火爐?","後面有多少顆樹?", "爸爸媽媽的褲子是什麼顏色?"],
+					["消防員在做什麼?","東東站在哪裡?","消防員的帽子是什麼顏色?", "東東手上有什麼?"]];
+			
+			
+			function init(){
+				$("#question").html("");
+				$("#btnStart").show();
+				$("#mark").html("分數: 0/4");
+				$("#mul_choices").hide();
+				$("#btnNext").hide();
+				$("#picture").attr("src","../img/3/3-"+(bqno+1)+".png").show();
+				score=0;
+				qno=0;
+			}
+			
+			init();
+			
+			$('li').click(function(){
+				$('li').addClass('unclick');
+				$(this).removeClass('unclick');
+				bqno=$(this).val();
+				init();
+			});
+			
+			$("input[type=radio]").click(function(){
+				user_ans=$(this).val();
+			});
+			
+			$("#btnNext").click(function(){
+				if(user_ans!=undefined){
+					checkAns();
+					qno++;
+					if(qno<4){
+						nextQuestion();
+					}
+					else{
+						showResult();
+					}
+
+					$("input[type=radio]").prop("checked",false);
+					user_ans=undefined;
+				}
+				else{
+					alert("請選擇答案");
+				}
+			});
+			
+			$("#btnStart").click(function(){
+				$("#mul_choices").show();
+				$("#picture").hide();
+				$("#instruction").hide();
+				$(this).hide();
+				$("#btnNext").show();
+				nextQuestion();
+				qno=0;
+
+			});
+			
+			function checkAns(){
+				if(ans[bqno][qno]==user_ans){
+					score++;
+				}
+				$("#mark").html("分數: "+score+"/4")
+			}
+			
+			function nextQuestion(){
+				$("#question").html(q[bqno][qno]);
+				$("#a").html(choices[bqno][qno][0]);
+				$("#b").html(choices[bqno][qno][1]);
+				$("#c").html(choices[bqno][qno][2]);
+			}
+			function showResult(){
+				$("#mul_choices").hide();
+				$("#question").hide();
+				$("#btnNext").hide();
+				$("#mark").html("你最後的分數是"+score+"/4");
+			
+			}
+		});
+	
+		
+		
+	</script>
+</body>
+</html>

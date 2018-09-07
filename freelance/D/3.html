@@ -1,0 +1,152 @@
+<html>
+<head>
+	<style>
+		table{
+			width:75%;
+			margin-bottom: 20px;
+		}
+		.place{
+			width: 25%;
+		}
+		.detail{
+			height: 50px;
+		}
+		#instruction{
+			font-size:1.1em;
+			font-weight:bold;
+		}
+		.ans_box{
+			border: 1px solid black;
+			width: 150px;
+			height: 25px;		
+		}
+		.ans{
+			list-style-type: none;
+			font-size: 1.2em;
+			padding: 5px;
+			margin: 5px;
+			display: inline;
+		}
+		.ans:hover{
+			background-color:grey;
+			cursor: grabbing;
+		}
+		
+	
+	</style>
+
+	<meta charset="UTF-8"></meta>
+	<meta name="author" content="Brent"></meta>
+	<title>人物解釋練習</title>
+</head>
+<body>
+	<div id="instruction">把正確答案拖到適當的方格內。你也可以自行新增答案。</div>
+	例子:
+	<table border="1">
+		<tr>
+			<th class="place">地方</th>
+			<th class="detail">描述</th>
+		</tr>
+		<tr>
+			<td rowspan="3">學校</td>
+			<td>人: 老師，同學，校長，校工，社工，語言治療師</td>
+		</tr>
+		<tr>
+			<td>事情: 上課，教書，學習，運動，穿校服，消息，午飯</td>
+		</tr>
+			<td>特徵: 很大，很多人，放假就很少人，大人穿便服，小朋友穿校服	</td>
+		</tr>
+	</table>
+	實作:
+	<table border="1">
+		<tr>
+			<th class="place">地方</th>
+			<th>描述</th>
+		</tr>
+		<tr>
+			<td rowspan="3"> </div></td>
+			<td class="detail">工作內容:</div></td>
+		<tr>
+			<td class="detail">工作地方:</div></td>
+		</tr>
+		<tr>
+			<td class="detail">特徵:    </div></td>
+		</tr>
+	</table>
+	<br>
+	<h2>參考詞彙:</h2>
+	<div id="list">
+		<div class="ans">燒烤場</div>
+		<div class="ans">課室</div>
+		<div class="ans">操場</div>
+		<div class="ans">跑馬場</div>
+		<div class="ans">碼頭</div>
+		<div class="ans">地鐵站</div>
+		<div class="ans">消防局</div>
+		<div class="ans">廚房</div>
+		<div class="ans">沖涼房</div>
+		<div class="ans">法庭</div>
+		<div class="ans">客廳</div>
+		<div class="ans">音樂廳</div>
+		<div class="ans">麥當勞</div>
+		<div class="ans">玩具</div>
+		<div class="ans">倉庫</div>
+		<div class="ans">汽水工廠</div>
+		<div class="ans">建築地盤</div>
+		<div class="ans">行人天橋</div>
+		<div class="ans">農場</div>
+		<br>
+		<div class="ans">老師</div>
+		<div class="ans">學生</div>
+		<div class="ans">爸爸</div>
+		<div class="ans">媽媽</div>
+		<div class="ans">老闆</div>
+		<div class="ans">服務員</div>
+		<div class="ans">救火員</div>
+		<div class="ans">廚師</div>
+		<div class="ans">音樂家</div>
+		<div class="ans">工人</div>
+		<div class="ans">收銀</div>
+		<div class="ans">管理</div>
+		<div class="ans">運動</div>
+		<div class="ans">煮飯</div>
+		<div class="ans">看電視</div>
+		<div class="ans">走路</div>
+		<div class="ans">搭車</div>
+		<div class="ans">指揮</div>
+		
+		
+		
+	</div>
+		<div>其他:
+			<input type="text" id="other">
+			<button type="button" id="add">新增</button>
+		</div>
+		<div >
+<script src="../javascript/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<script>
+	$("#add").click(function(){
+		if ($("#other").val()!=""){
+			var string=$('#other').val();
+			$("#list").append("<div class='ans'>"+string+"</div>");
+			$(".ans:last-child").draggable();
+			$("#other").val("");
+		}
+		else{
+			alert("請先輸入再按下新增按鈕。");
+		}
+	});
+	$(function(){
+		$(".ans").draggable();
+	});
+	
+	$("#other").keypress(function(e){
+		if(e.which==13){
+			$("#add").click();
+		}
+	});
+	
+</script>
+</body>
+</html>
